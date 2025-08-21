@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow sensitive endpoints
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://your-domain.vercel.app/sitemap.xml

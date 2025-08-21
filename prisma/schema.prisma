@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  image     String?
+  provider  String?
+  providerId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  files ConvertedFile[]
+  
+  @@map("users")
+}
+
+model ConvertedFile {
+  id               String   @id @default(cuid())
+  originalFilename String
+  fileSize         Int
+  status           FileStatus @default(PENDING)
+  htmlContent      String?
+  cssContent       String?
+  error            String?
+  expiresAt        DateTime
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  // Nuevo campo para agrupar archivos
+  batchId          String?
+  isMerged         Boolean @default(false)
+  
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("converted_files")
+}
+
+enum FileStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}

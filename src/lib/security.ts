@@ -78,7 +78,7 @@ export class SecurityUtils {
 
   // Verificar si una IP está en lista negra (ejemplo básico)
   static isBlacklistedIP(ip: string): boolean {
-    const blacklist = [
+    const blacklist: string[] = [
       // Agregar IPs problemáticas aquí
     ]
     return blacklist.includes(ip)

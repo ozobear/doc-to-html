@@ -42,7 +42,7 @@ export default function TermsPage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">4. Limitaciones de Responsabilidad</h2>
           <p className="text-gray-600 leading-relaxed">
-            El servicio se proporciona "tal como está". No garantizamos la perfecta conversión de todos 
+            El servicio se proporciona &quot;tal como está&quot;. No garantizamos la perfecta conversión de todos 
             los documentos ni nos hacemos responsables por pérdida de datos.
           </p>
         </section>

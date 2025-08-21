@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generar hash del archivo para evitar duplicados
-    const fileHash = SecurityUtils.generateFileHash(buffer)
+    // const fileHash = SecurityUtils.generateFileHash(buffer) // TODO: Implementar validación de duplicados
 
     // Crear registro en base de datos
     const expiresAt = new Date(Date.now() + 3 * 60 * 60 * 1000) // 3 horas
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
         fileSize: file.size,
         status: 'PROCESSING',
         expiresAt,
-        userId: (session?.user as any)?.id,
+        userId: session?.user ? (session.user as { id: string }).id : null,
         batchId,
         isMerged,
       },

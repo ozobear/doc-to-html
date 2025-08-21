@@ -71,7 +71,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       if (!response.ok) {
         if (data.requiresAuth) {
           const authError = new Error(data.error || 'Autenticación requerida')
-          ;(authError as any).requiresAuth = true
+          ;(authError as Error & { requiresAuth: boolean }).requiresAuth = true
           throw authError
         }
         throw new Error(data.error || 'Error al subir archivo')
@@ -137,7 +137,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             })
           }
         } catch (fileError) {
-          if (fileError instanceof Error && (fileError as any).requiresAuth) {
+          if (fileError instanceof Error && (fileError as Error & { requiresAuth?: boolean }).requiresAuth) {
             onUploadError(`${fileError.message} - Se requiere autenticación para archivos grandes.`)
             if (onAuthRequired) {
               onAuthRequired()

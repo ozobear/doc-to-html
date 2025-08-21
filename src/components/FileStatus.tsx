@@ -60,7 +60,7 @@ const FileStatus: React.FC<FileStatusProps> = ({ fileId, onDownloadReady }) => {
             startPolling()
           }
         }
-      } catch (err) {
+      } catch {
         setError('Error de conexión')
         stopPolling()
       } finally {

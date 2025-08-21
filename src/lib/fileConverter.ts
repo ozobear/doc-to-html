@@ -210,7 +210,7 @@ export class FileConverter {
       const sheetName = workbook.SheetNames[0]
       const sheet = workbook.Sheets[sheetName]
       
-      const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 }) as any[][]
+      const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 }) as unknown[][]
       
       if (jsonData.length === 0) {
         throw new Error('La hoja de Excel está vacía')
@@ -221,13 +221,13 @@ export class FileConverter {
         <table>
           <thead>
             <tr>
-              ${jsonData[0].map((cell: any) => `<th>${this.escapeHtml(String(cell || ''))}</th>`).join('')}
+              ${jsonData[0].map((cell: unknown) => `<th>${this.escapeHtml(String(cell || ''))}</th>`).join('')}
             </tr>
           </thead>
           <tbody>
-            ${jsonData.slice(1).map((row: any[]) => `
+            ${jsonData.slice(1).map((row: unknown[]) => `
               <tr>
-                ${row.map((cell: any) => `<td>${this.escapeHtml(String(cell || ''))}</td>`).join('')}
+                ${row.map((cell: unknown) => `<td>${this.escapeHtml(String(cell || ''))}</td>`).join('')}
               </tr>
             `).join('')}
           </tbody>

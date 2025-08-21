@@ -34,7 +34,7 @@ export default function Home() {
   const [convertedFiles, setConvertedFiles] = useState<{ [key: string]: { html: string; filename: string } }>({})
   const [errors, setErrors] = useState<string[]>([])
   const [showAuthModal, setShowAuthModal] = useState(false)
-  const [providers, setProviders] = useState<any>(null)
+  const [providers, setProviders] = useState<Record<string, unknown> | null>(null)
   const [batches, setBatches] = useState<{ [batchId: string]: { files: string[], mergedFileId?: string, isMerged: boolean } }>({})
 
   React.useEffect(() => {
@@ -231,7 +231,7 @@ export default function Home() {
                 
                 for (const fileId of uploadedFiles) {
                   // Buscar si este archivo pertenece a un batch
-                  const batchEntry = Object.entries(batches).find(([_, batch]) => 
+                  const batchEntry = Object.entries(batches).find(([, batch]) => 
                     batch.files.includes(fileId)
                   )
                   

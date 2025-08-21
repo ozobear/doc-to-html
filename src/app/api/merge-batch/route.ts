@@ -15,7 +15,18 @@ function escapeHtml(text: string): string {
 }
 
 // Función para crear contenido unificado
-function createMergedContent(files: any[]) {
+interface FileContent {
+  id: string;
+  originalFilename: string;
+  htmlContent: string | null;
+  cssContent: string | null;
+  status: string;
+  createdAt: Date;
+  expiresAt: Date;
+  userId: string | null;
+}
+
+function createMergedContent(files: FileContent[]) {
   console.log(`🔍 createMergedContent recibió ${files.length} archivos:`)
   files.forEach((file, index) => {
     console.log(`  ${index + 1}. ${file.originalFilename} (${file.id})`)

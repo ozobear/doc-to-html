@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions)
 
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
 
     const files = await prisma.convertedFile.findMany({
       where: {
-        userId: (session.user as any).id,
+        userId: (session.user as { id: string }).id,
         expiresAt: {
           gt: new Date(),
         },
